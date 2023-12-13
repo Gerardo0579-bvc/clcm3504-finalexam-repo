@@ -1,0 +1,80 @@
+name: Push-FinalRepoExam-to-Ec2
+
+# Trigger deployment only on push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to EC2 on main branch push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |    
+            # Position script
+            cd home
+            
+            # Configure env variable inside envfile
+            if [ -f "envfile" ]; then
+              export VERSION=$(grep -o '[0-9]*' envfile)
+              sudo echo -e "VERSION=$((VERSION + 1))" | sudo tee envfile
+            else
+              sudo echo -e "VERSION=1" | sudo tee envfile
+            fi
+            export VERSION=$(grep -o '[0-9]*' envfile)
+            
+            # Configure directories
+            sudo rm -rf project
+            sudo mkdir -p project/clcm3504-finalexam-folder
+            sudo mv docker-compose.yml project
+            sudo mv README.md project/clcm3504-finalexam-folder
+            sudo mv AboutUs.html project/clcm3504-finalexam-folder
+            sudo mv ContactUs.html project/clcm3504-finalexam-folder
+            sudo mv Service.html project/clcm3504-finalexam-folder
+            sudo mv index.html project/clcm3504-finalexam-folder
+            sudo mv js/ project/clcm3504-finalexam-folder/
+            sudo mv Images/ project/clcm3504-finalexam-folder/
+            sudo mv CSS/ project/clcm3504-finalexam-folder/
+            cd project
+            
+            # Install docker and docker-compose
+            sudo yum -y update
+            sudo yum install -y docker
+            sudo systemctl start docker
+            sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+            sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+            # Stopping currently running containers and delete images (to avoid fill memory and space)
+            docker stop $(docker ps -q)
+            docker rm $(docker ps -a -q)
+            docker rmi -f $(docker images -aq)
+                        
+            # Login into Docker account and configure Dockerfile
+            sudo docker login -u="gerardo0579bvc" -p=${{ secrets.DOCKER_PASS }} docker.io
+            sudo echo -e "FROM httpd:2.4\nCOPY ./clcm3504-finalexam-folder/ ." | sudo tee Dockerfile
+            
+            # Create, run and push image
+            sudo docker-compose --env-file ../envfile up -d
+            # To TAG if necessary
+            # sudo docker tag "$(sudo docker images -q gerardo0579bvc/clcm3504-finalexam-image:v$VERSION)" gerardo0579bvc/clcm3504-finalexam-image:v$VERSION
+            sudo docker push gerardo0579bvc/clcm3504-finalexam-image:v$VERSION
