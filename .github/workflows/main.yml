@@ -71,7 +71,7 @@ jobs:
                         
             # Login into Docker account and configure Dockerfile
             sudo docker login -u="gerardo0579bvc" -p=${{ secrets.DOCKER_PASS }} docker.io
-            sudo echo -e "FROM httpd:2.4\nCOPY ./clcm3504-finalexam-folder/ ." | sudo tee Dockerfile
+            sudo echo -e "FROM httpd:2.4\nCOPY ./clcm3504-finalexam-folder/ ./htdocs" | sudo tee Dockerfile
             
             # Create, run and push image
             sudo docker-compose --env-file ../envfile up -d
