@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> TechCo </title>
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/normalize.css">
+
+
+</head>
+
+<body>
+
+
+  <div class="topnav">
+    <a href="Index.html">Home</a>
+    <a href="Service.html">Service</a>
+    <a href="ContactUs.html">Contact Us</a>
+    <a href="AboutUs.html">About Us</a>
+
+  </div>
+
+  <header id="contact-header">
+    <span>
+      Contact Us!
+    </span>
+  </header>
+  <section id="contact-info">
+    You can contact us at the following channels
+    <ul>
+      <li><strong>By phone:</strong> 4039999999</li>
+      <li><strong>By mail:</strong> Bow Valley College 345 6 Ave SE, Calgary, AB T2G 4V1 Calgary</li>
+      <li><strong>By email:</strong> Using the following form.</li>
+    </ul>
+  </section>
+
+  <div id="contact-form-wrapper">
+    <form id="contact-form" method="post" enctype="text/plain">
+      <h2>Send us an email</h2>
+      <div class="form-item">
+        <label for="name">Name:</label>
+        <input class="simple-input" type="text" id="name" name="name" autocomplete="name" required>
+      </div>
+      <div class="form-item">
+        <label for="mail">E-mail:</label>
+        <input class="simple-input" type="text" id="mail" name="mail" autocomplete="email" required>
+      </div>
+      <div class="form-item">
+        <label for="comments">Comment:</label>
+        <textarea class="text-input" type="text" name="comments" id="comments" rows="7" required></textarea>
+      </div>
+      <div class="form-item">
+        <input class="button submit" type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('contactform').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      var name = document.getElementById('name').value;
+      var mail = document.getElementById('mail').value;
+      var comments = document.getElementById('comments').value;
+
+
+      window.location.href = "mailto:" + "g.maressolano@mybvc.ca"
+        + "?subject=" + encodeURIComponent(name) + " " + encodeURIComponent(name)
+        + "&body=" + encodeURIComponent(comments);
+    });
+  </script>
+
+
+
+  <!-- /map -->
+  <div class="map">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d321200.7122700654!2d-114.41747571679171!3d51.02759155262738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537170039f843fd5%3A0x266d3bb1b652b63a!2sCalgary%2C%20AB!5e0!3m2!1sen!2sca!4v1700764167297!5m2!1sen!2sca"
+      width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  <!-- //map -->
+
+
+
+</body>
+
+</html>

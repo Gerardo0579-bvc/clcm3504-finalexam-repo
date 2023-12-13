@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> TechCo </title>
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/normalize.css">
+  <meta charset="UTF-8">
+
+
+</head>
+
+<body>
+
+  <div class="topnav">
+    <a href="Index.html">Home</a>
+    <a href="Service.html">Service</a>
+    <a href="ContactUs.html">Contact Us</a>
+    <a href="AboutUs.html">About Us</a>
+  </div>
+
+  <header id="service-header">
+    <span>
+      Our services
+    </span>
+  </header>
+
+  <div id="services-wrapper">
+    <div id="services-items">
+      <a onmouseenter="onMouseOverService('marketing')" class="stylished-btn stylished-special">
+        <div class="stylished-btn-body stylished-btn-special">
+          Digital Marketing
+        </div>
+      </a>
+      <a onmouseenter="onMouseOverService('design')" class="stylished-btn stylished-special">
+        <div class="stylished-btn-body stylished-btn-special">
+          Graphic design
+        </div>
+      </a>
+      <a onmouseenter="onMouseOverService('website')" class="stylished-btn stylished-special">
+        <div class="stylished-btn-body stylished-btn-special">
+          Website development
+        </div>
+      </a>
+      <a onmouseenter="onMouseOverService('app')" class="stylished-btn stylished-special">
+        <div class="stylished-btn-body stylished-btn-special">
+          App development
+        </div>
+      </a>
+
+    </div>
+    <div id="services-content">
+      <div id="item-marketing" class="service-description item-visible">
+        <h3>Digital Marketing</h3>
+        We are one of the leading digital marketing agencies that effectively expand your
+        business with online marketing services. If you want to boost conversions, traffic to your website, or both,
+        we will help you design an internet marketing strategy to help you achieve your goals.
+
+        <img src="Images/marketing.jpeg" alt=" item image">
+      </div>
+      <div id="item-design" class="service-description ">
+        <h3>Graphic design</h3>
+        Creative and unique graphic designing services, Visual Identity and Branding Solutions
+        by our professional graphic designers.
+        <img src="Images/design.jpeg" alt=" item image">
+      </div>
+      <div id="item-website" class="service-description ">
+        <h3>Website development</h3>
+        Website Development services by our expert web developers, either it's on CMS or any
+        other platform we are always ready to face challenges.
+        <img src="Images/website.jpeg" alt=" item image">
+      </div>
+      <div id="item-app" class="service-description ">
+        <h3>App development</h3>
+        TechCo has been rendering the services of app development since 2017. The experienced
+        and trained developers have a profound understanding of software development techniques. Ranging from
+        requirements gathering to the application testing, we used to pay enormous attention to the details and
+        every part of the project.
+        <img src="Images/app.jpeg" alt=" item image">
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  function onMouseOverService(item) {
+    var items = document.querySelectorAll('.item-visible');
+
+    items.forEach(function (item) {
+      item.classList.remove('item-visible');
+    });
+
+    onMouseOverItem(item);
+  }
+  function onMouseOverItem(item) {
+    var element = document.getElementById(`item-${item}`);
+    if (element) {
+      element.classList.add("item-visible");
+    }
+  }
+  function onMouseLeavingItem(item) {
+    var element = document.getElementById(`item-${item}`);
+    if (element) {
+      element.classList.remove("item-visible");
+    }
+  }
+</script>

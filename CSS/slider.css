@@ -1,0 +1,55 @@
+.slider {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 550px;
+  position: relative;
+  overflow: hidden;
+  top: 0;
+  margin-bottom: calc(4em + 50px);
+  background-color: white;
+  border-bottom: 2px solid black;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: all 0.5s;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  z-index: 10px;
+  cursor: pointer;
+  background-color: #000000b9;
+  font-size: 24px;
+  font-weight: 1000;
+  color: white;
+  box-shadow: 1px 1px 3px black;
+}
+
+.btn:active {
+  transform: scale(1.1);
+}
+
+.btn-prev {
+  top: 45%;
+  left: 2%;
+}
+
+.btn-next {
+  top: 45%;
+  right: 2%;
+}
