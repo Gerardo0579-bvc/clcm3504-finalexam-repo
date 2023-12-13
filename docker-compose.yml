@@ -1,0 +1,9 @@
+version: "1"
+services:
+  web:
+    image: gerardo0579bvc/clcm3504-finalexam-image:v$VERSION
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    container_name: clcm3504-finalexam-container
